@@ -13,10 +13,14 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        Lives = 3;
-        Score = 0;
-        Time.timeScale = 0;
-        CurrentState = GameState.GameIdle;
+        if (SceneManager.GetActiveScene().name != "GameOverScene")
+        {
+            Lives = 3;
+            Score = 0;
+            Time.timeScale = 0;
+
+            CurrentState = GameState.GameIdle;
+        }
     }
     
     void Update()
@@ -26,6 +30,17 @@ public class GameManager : MonoBehaviour
             CurrentState = GameState.GameStart;
             Time.timeScale = 1;
             HUD.HUDManager.DismissMessage();
+        }
+
+        else if (CurrentState == GameState.GameOver)
+        {
+            PlayerPrefs.SetInt("score", Score);
+            if(Score > PlayerPrefs.GetInt("high score"))
+            {
+                PlayerPrefs.SetInt("high score", Score);
+            }
+
+            SceneManager.LoadScene("GameOverScene");
         }
 
         else if(CurrentState == GameState.GameOver && Input.GetKeyDown(KeyCode.Return))
