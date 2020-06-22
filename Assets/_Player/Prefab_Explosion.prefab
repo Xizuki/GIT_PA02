@@ -304,4 +304,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 95047127690305128}
-  time: 1
+  time: 0.7
